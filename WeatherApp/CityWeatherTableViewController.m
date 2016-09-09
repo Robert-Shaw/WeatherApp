@@ -84,6 +84,7 @@
     if(error)
     {
         [self.tableData addObject:@"No data to return for the selected city"];
+        [self.tableDataMaxTempDate addObject:@""];
     }
     
     // Retrieve temp and date
@@ -104,8 +105,16 @@
     
     NSString *temp = [self.tableData objectAtIndex:indexPath.row];
     NSString *date = [self.tableDataMaxTempDate objectAtIndex:indexPath.row];
+    NSString *stringsCombined;
     
-    NSString *stringsCombined = [NSString stringWithFormat:@"Degrees: %@    Date: %@", temp, date];
+    if(![date isEqualToString:@""])
+    {
+        stringsCombined = [NSString stringWithFormat:@"Degrees: %@    Date: %@", temp, date];
+        
+    } else {
+        
+        stringsCombined = [NSString stringWithFormat:@"%@", temp];
+    }
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     
