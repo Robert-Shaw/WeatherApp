@@ -14,7 +14,7 @@
 		E1D202DD1D78118D00EF0C80 /* WeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1D202DB1D78118D00EF0C80 /* WeatherApp.xcdatamodeld */; };
 		E1D202DF1D78118D00EF0C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D202DE1D78118D00EF0C80 /* Assets.xcassets */; };
 		E1D202E21D78118D00EF0C80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D202E01D78118D00EF0C80 /* LaunchScreen.storyboard */; };
-		E1D202ED1D78118D00EF0C80 /* WeatherAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D202EC1D78118D00EF0C80 /* WeatherAppTests.m */; };
+		E1D202ED1D78118D00EF0C80 /* CityWeatherTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D202EC1D78118D00EF0C80 /* CityWeatherTableViewControllerTests.m */; };
 		E1D202F91D78285D00EF0C80 /* CityNamesViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D202F81D78285D00EF0C80 /* CityNamesViewControllerTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +33,7 @@
 		E1604AB01D7EE73200745837 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E1604AF91D7FE94400745837 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E1604AFD1D7FE9C300745837 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		E1B7BE381D9160C3002BB525 /* CityWeatherTableViewController_TestingPrivates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityWeatherTableViewController_TestingPrivates.h; sourceTree = "<group>"; };
 		E1C11B3D1D7D4DB5001E9EDB /* CityWeatherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityWeatherTableViewController.h; sourceTree = "<group>"; };
 		E1C11B3E1D7D4DB5001E9EDB /* CityWeatherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityWeatherTableViewController.m; sourceTree = "<group>"; };
 		E1D202CC1D78118D00EF0C80 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +46,7 @@
 		E1D202E11D78118D00EF0C80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1D202E31D78118D00EF0C80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1D202E81D78118D00EF0C80 /* WeatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1D202EC1D78118D00EF0C80 /* WeatherAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherAppTests.m; sourceTree = "<group>"; };
+		E1D202EC1D78118D00EF0C80 /* CityWeatherTableViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityWeatherTableViewControllerTests.m; sourceTree = "<group>"; };
 		E1D202EE1D78118D00EF0C80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1D202F71D78285D00EF0C80 /* CityNamesViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityNamesViewControllerTableViewController.h; sourceTree = "<group>"; };
 		E1D202F81D78285D00EF0C80 /* CityNamesViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityNamesViewControllerTableViewController.m; sourceTree = "<group>"; };
@@ -137,8 +138,9 @@
 		E1D202EB1D78118D00EF0C80 /* WeatherAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				E1D202EC1D78118D00EF0C80 /* WeatherAppTests.m */,
+				E1D202EC1D78118D00EF0C80 /* CityWeatherTableViewControllerTests.m */,
 				E1D202EE1D78118D00EF0C80 /* Info.plist */,
+				E1B7BE381D9160C3002BB525 /* CityWeatherTableViewController_TestingPrivates.h */,
 			);
 			path = WeatherAppTests;
 			sourceTree = "<group>";
@@ -255,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1D202ED1D78118D00EF0C80 /* WeatherAppTests.m in Sources */,
+				E1D202ED1D78118D00EF0C80 /* CityWeatherTableViewControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
