@@ -2,6 +2,7 @@
 
 @interface CityWeatherDataProvider ()
 
+@property (nonatomic, strong) NSMutableData *responseData;
 @property (nonatomic, strong) NSMutableArray *maxTempsForCity;
 @property (nonatomic, strong) NSMutableArray *maxTempDatesForCity;
 @property (nonatomic, strong) NSString *cityNameFromService;
@@ -19,56 +20,36 @@
     return _responseData;
 }
 
+- (NSURLRequest *)makeRequestWithCityName:(NSString *)cityName {
+    NSURLRequest *request = [NSURLRequest requestWithURL:
+                             [NSURL URLWithString: [NSString stringWithFormat:@"http://api.worldweatheronline.com/premium/v1/weather.ashx?q=%@&format=json&num_of_days=5&key=fc5d2e78218d43dfac4142824160609", cityName]]];
+    return request;
+}
+
+- (void)startNetworkRequest:(NSURLRequest *)request {
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      [self didReceiveData:data];
+                                  }];
+    
+    [task resume];
+}
+
 - (void)startNetworkRequestWithDelegate:(id<CityWeatherDataProviderDelegate>)delegate cityName:(NSString *)cityName {
     self.delegate = delegate;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:
-                             [NSURL URLWithString: [NSString stringWithFormat:@"http://api.worldweatheronline.com/premium/v1/weather.ashx?q=%@&format=json&num_of_days=5&key=fc5d2e78218d43dfac4142824160609", cityName]]];
+    NSURLRequest *request;
+    request = [self makeRequestWithCityName:cityName];
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    [connection start];
+    [self startNetworkRequest:request];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.responseData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self.responseData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // convert to JSON
-    NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
-    
-    // Retrieve Error
-    NSDictionary *results = [res objectForKey:@"data"];
-    NSDictionary *error = [results objectForKey:@"error"];
-    
-    // Retrieve City Name
-    NSDictionary *request = [results objectForKey:@"request"];
-    self.cityNameFromService = [request valueForKey:@"query"];
-    
-    if(error)
-    {
-        [self.maxTempsForCity addObject:@"No data to return for the selected city"];
-        [self.maxTempDatesForCity addObject:@""];
-    }
-    
-    // Retrieve temp and date
-    NSDictionary *currentWeather= [results objectForKey:@"weather"];
-    for (NSDictionary *maxTemp in currentWeather) {
-        NSString *maxTempforCity = [maxTemp objectForKey:@"maxtempC"];
-        [self.maxTempsForCity addObject:maxTempforCity];
-        NSString *maxTempDate = [maxTemp objectForKey:@"date"];
-        [self.maxTempDatesForCity addObject:maxTempDate];
-    }
-    
+- (void)didReceiveData:(NSData *)data {
     if ([self.delegate respondsToSelector:@selector(didReceiveData:)]) {
-        [self.delegate didReceiveData:self.responseData];
+        [self.delegate didReceiveData:data];
     }
-    
 }
 
 @end

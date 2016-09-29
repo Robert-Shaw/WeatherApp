@@ -8,8 +8,6 @@
 
 @interface CityWeatherDataProvider : NSObject
 
-@property (nonatomic, strong) NSMutableData *responseData;
-
 - (void)startNetworkRequestWithDelegate:(id<CityWeatherDataProviderDelegate>)delegate cityName:(NSString *)cityName;
 
 @end
