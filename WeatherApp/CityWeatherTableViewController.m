@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *maxTempsForCity;
 @property (nonatomic, strong) NSMutableArray *maxTempDatesForCity;
 @property (nonatomic, strong) NSString *cityNameFromService;
+@property (nonatomic, strong) CityWeatherDataProvider *dataProvider;
 
 @end
 
@@ -45,8 +46,8 @@
 }
 
 - (void)startNetworkRequestWithDelegate:(id)delegate cityName:(NSString *)cityName {
-    CityWeatherDataProvider *dataProvider = [CityWeatherDataProvider new];
-    [dataProvider startNetworkRequestWithDelegate:delegate cityName:cityName];
+    self.dataProvider = [CityWeatherDataProvider new];
+    [self.dataProvider startNetworkRequestWithDelegate:delegate cityName:cityName];
 }
 
 #pragma mark - Table view data source
@@ -55,19 +56,11 @@
     return [self.maxTempsForCity count];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.responseData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self.responseData appendData:data];
-    [self.tableView reloadData];
-}
-
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    self.responseData = self.dataProvider.responseData;
     // convert to JSON
     NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
+    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[self.dataProvider responseData] options:NSJSONReadingMutableLeaves error:&myError];
     
     // Retrieve Error
     NSDictionary *results = [res objectForKey:@"data"];

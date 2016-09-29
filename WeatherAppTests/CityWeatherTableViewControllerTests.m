@@ -31,7 +31,7 @@
     [self.cityWeatherTableViewController connectionDidFinishLoading:nil];
     
     // then
-    XCTAssertNotNil(self.cityWeatherTableViewController.responseData);
+    XCTAssertTrue(self.cityWeatherTableViewController.responseData.length > 0);
 }
 
 @end
