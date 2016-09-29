@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CityWeatherDataProvider.h"
 
-@interface CityWeatherTableViewController : UITableViewController<NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface CityWeatherTableViewController : UITableViewController <CityWeatherDataProviderDelegate>
 
--(id)initWithCity:(NSString *)cityName;
+- (id)initWithCity:(NSString *)cityName;
 
 @end

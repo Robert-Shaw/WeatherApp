@@ -19,7 +19,7 @@
     return _responseData;
 }
 
-- (void)startNetworkRequestWithDelegate:(id)delegate cityName:(NSString *)cityName {
+- (void)startNetworkRequestWithDelegate:(id<CityWeatherDataProviderDelegate>)delegate cityName:(NSString *)cityName {
     self.delegate = delegate;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:
@@ -65,7 +65,10 @@
         [self.maxTempDatesForCity addObject:maxTempDate];
     }
     
-    [self.delegate connectionDidFinishLoading:connection];
+    if ([self.delegate respondsToSelector:@selector(didReceiveData:)]) {
+        [self.delegate didReceiveData:self.responseData];
+    }
+    
 }
 
 @end

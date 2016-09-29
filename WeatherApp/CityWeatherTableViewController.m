@@ -12,7 +12,7 @@
 @interface CityWeatherTableViewController ()
 
 @property (nonatomic, strong) NSString *cityName;
-@property (nonatomic, strong) NSMutableData *responseData;
+@property (nonatomic, strong) NSData *responseData;
 @property (nonatomic, strong) NSMutableArray *maxTempsForCity;
 @property (nonatomic, strong) NSMutableArray *maxTempDatesForCity;
 @property (nonatomic, strong) NSString *cityNameFromService;
@@ -41,7 +41,6 @@
     self.maxTempsForCity = [[NSMutableArray alloc] init];
     self.maxTempDatesForCity = [[NSMutableArray alloc] init];
     
-    self.responseData = [NSMutableData data];
     [self startNetworkRequestWithDelegate:self cityName:self.cityName];
 }
 
@@ -56,11 +55,15 @@
     return [self.maxTempsForCity count];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    self.responseData = self.dataProvider.responseData;
+- (void)didReceiveData:(NSData *)data {
+    self.responseData = data;
+    [self parseResponseData];
+}
+
+- (void)parseResponseData {
     // convert to JSON
     NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[self.dataProvider responseData] options:NSJSONReadingMutableLeaves error:&myError];
+    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
     
     // Retrieve Error
     NSDictionary *results = [res objectForKey:@"data"];
