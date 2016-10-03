@@ -1,11 +1,3 @@
-//
-//  CityNamesViewControllerTableViewController.m
-//  WeatherApp
-//
-//  Created by Robert Shaw on 2016/09/01.
-//  Copyright © 2016 com.glucode.corp. All rights reserved.
-//
-
 #import "CityNamesViewControllerTableViewController.h"
 #import "CityWeatherTableViewController.h"
 #import "AppDelegate.h"

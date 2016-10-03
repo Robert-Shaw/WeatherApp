@@ -48,7 +48,11 @@
 {
     static NSString *identifier = @"identifier";
     
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
     
     cell.textLabel.text = [self.dataProvider weatherForCityAtIndex:indexPath.row];
     
