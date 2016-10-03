@@ -85,4 +85,23 @@
     }
 }
 
+- (NSString *)weatherForCityAtIndex:(NSInteger)index {
+    
+    NSString *temp = [self.maxTempsForCity objectAtIndex:index];
+    NSString *date = [self.maxTempDatesForCity objectAtIndex:index];
+    NSString *stringsCombined;
+    
+    if(![date isEqualToString:@""])
+    {
+        stringsCombined = [NSString stringWithFormat:@"Degrees: %@    Date: %@", temp, date];
+        
+    } else {
+        
+        stringsCombined = [NSString stringWithFormat:@"%@", temp];
+    }
+
+    
+    return stringsCombined;
+}
+
 @end

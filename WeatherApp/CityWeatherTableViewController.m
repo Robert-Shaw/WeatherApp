@@ -1,11 +1,3 @@
-//
-//  CityWeatherTableViewController.m
-//  WeatherApp
-//
-//  Created by Robert Shaw on 2016/09/05.
-//  Copyright © 2016 com.glucode.corp. All rights reserved.
-//
-
 #import "CityWeatherTableViewController.h"
 #import "CityWeatherDataProvider.h"
 
@@ -56,23 +48,11 @@
 {
     static NSString *identifier = @"identifier";
     
-    NSString *temp = [self.dataProvider.maxTempsForCity objectAtIndex:indexPath.row];
-    NSString *date = [self.dataProvider.maxTempDatesForCity objectAtIndex:indexPath.row];
-    NSString *stringsCombined;
-    
-    if(![date isEqualToString:@""])
-    {
-        stringsCombined = [NSString stringWithFormat:@"Degrees: %@    Date: %@", temp, date];
-        
-    } else {
-        
-        stringsCombined = [NSString stringWithFormat:@"%@", temp];
-    }
-    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     
-    cell.textLabel.text = stringsCombined;
+    cell.textLabel.text = [self.dataProvider weatherForCityAtIndex:indexPath.row];
     
     return cell;
 }
+
 @end

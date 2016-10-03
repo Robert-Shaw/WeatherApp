@@ -12,5 +12,6 @@
 @property (nonatomic, strong) NSMutableArray *maxTempDatesForCity;
 
 - (void)startNetworkRequestWithDelegate:(id<CityWeatherDataProviderDelegate>)delegate cityName:(NSString *)cityName;
+- (NSString *)weatherForCityAtIndex:(NSInteger)index;
 
 @end
