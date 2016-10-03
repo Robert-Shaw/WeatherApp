@@ -12,10 +12,6 @@
 @interface CityWeatherTableViewController ()
 
 @property (nonatomic, strong) NSString *cityName;
-@property (nonatomic, strong) NSData *responseData;
-@property (nonatomic, strong) NSMutableArray *maxTempsForCity;
-@property (nonatomic, strong) NSMutableArray *maxTempDatesForCity;
-@property (nonatomic, strong) NSString *cityNameFromService;
 @property (nonatomic, strong) CityWeatherDataProvider *dataProvider;
 
 @end
@@ -38,9 +34,6 @@
     
     self.navigationItem.title = self.cityName;
     
-    self.maxTempsForCity = [[NSMutableArray alloc] init];
-    self.maxTempDatesForCity = [[NSMutableArray alloc] init];
-    
     [self startNetworkRequestWithDelegate:self cityName:self.cityName];
 }
 
@@ -52,42 +45,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.maxTempsForCity count];
+    return [self.dataProvider.maxTempsForCity count];
 }
 
-- (void)didReceiveData:(NSData *)data {
-    self.responseData = data;
-    [self parseResponseData];
-}
-
-- (void)parseResponseData {
-    // convert to JSON
-    NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:self.responseData options:NSJSONReadingMutableLeaves error:&myError];
-    
-    // Retrieve Error
-    NSDictionary *results = [res objectForKey:@"data"];
-    NSDictionary *error = [results objectForKey:@"error"];
-    
-    // Retrieve City Name
-    NSDictionary *request = [results objectForKey:@"request"];
-    self.cityNameFromService = [request valueForKey:@"query"];
-    
-    if(error)
-    {
-        [self.maxTempsForCity addObject:@"No data to return for the selected city"];
-        [self.maxTempDatesForCity addObject:@""];
-    }
-    
-    // Retrieve temp and date
-    NSDictionary *currentWeather= [results objectForKey:@"weather"];
-    for (NSDictionary *maxTemp in currentWeather) {
-        NSString *maxTempforCity = [maxTemp objectForKey:@"maxtempC"];
-        [self.maxTempsForCity addObject:maxTempforCity];
-        NSString *maxTempDate = [maxTemp objectForKey:@"date"];
-        [self.maxTempDatesForCity addObject:maxTempDate];
-    }
-    
+- (void)didReceiveData {
     [self.tableView reloadData];
 }
 
@@ -95,8 +56,8 @@
 {
     static NSString *identifier = @"identifier";
     
-    NSString *temp = [self.maxTempsForCity objectAtIndex:indexPath.row];
-    NSString *date = [self.maxTempDatesForCity objectAtIndex:indexPath.row];
+    NSString *temp = [self.dataProvider.maxTempsForCity objectAtIndex:indexPath.row];
+    NSString *date = [self.dataProvider.maxTempDatesForCity objectAtIndex:indexPath.row];
     NSString *stringsCombined;
     
     if(![date isEqualToString:@""])
