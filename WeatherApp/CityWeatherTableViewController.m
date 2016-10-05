@@ -37,7 +37,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataProvider.maxTempsForCity count];
+    return [self.dataProvider numberOfRowsToDisplay];
 }
 
 - (void)didReceiveData {

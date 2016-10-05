@@ -4,6 +4,7 @@
 
 @property (nonatomic, strong) NSMutableData *responseData;
 @property (nonatomic, weak) id delegate;
+@property (nonatomic, strong) NSMutableArray <WeatherItem *> *weatherItemArray;
 
 @end
 
@@ -54,9 +55,6 @@
         WeatherItem *item = [[WeatherItem alloc] initWithMaxTemperature:[maxTempforCity intValue] forDateString:maxTempDate];
         
         [self.weatherItemArray addObject:item];
-        [self.maxTempsForCity addObject:maxTempforCity];
-        [self.maxTempDatesForCity addObject:maxTempDate];
-        
     }
 }
 
@@ -67,9 +65,6 @@
 }
 
 - (void)parseResponseData:(NSData *)data {
-    
-    self.maxTempsForCity = [NSMutableArray new];
-    self.maxTempDatesForCity = [NSMutableArray new];
     self.weatherItemArray = [NSMutableArray new];
     
     NSError *myError = nil;
@@ -78,10 +73,9 @@
     NSDictionary *results = [res objectForKey:@"data"];
     NSDictionary *error = [results objectForKey:@"error"];
     
+    //Begin here
     if(error) {
         [self addNoWeatherItem];
-        [self.maxTempsForCity addObject:@"No data to return for the selected city"];
-        [self.maxTempDatesForCity addObject:@""];
     } else {
         NSDictionary *currentWeather= [results objectForKey:@"weather"];
         [self setMaxTempAndDateForCity:currentWeather];
@@ -96,20 +90,22 @@
     
     WeatherItem *item = [self.weatherItemArray objectAtIndex:index];
     
-    NSString *temp = [self.maxTempsForCity objectAtIndex:index];
-    NSString *date = [self.maxTempDatesForCity objectAtIndex:index];
     NSString *stringsCombined;
     
-    if(![date isEqualToString:@""])
+    if(![item.date isEqualToString:@""])
     {
-        stringsCombined = [NSString stringWithFormat:@"Degrees: %@    Date: %@", temp, date];
+        stringsCombined = [NSString stringWithFormat:@"Degrees: %d    Date: %@", item.temperature, item.date];
         
     } else {
         
-        stringsCombined = [NSString stringWithFormat:@"%@", temp];
+        stringsCombined = [NSString stringWithFormat:@"%d", item.temperature];
     }
     
     return stringsCombined;
+}
+
+- (NSUInteger)numberOfRowsToDisplay{
+    return [self.weatherItemArray count];
 }
 
 @end
