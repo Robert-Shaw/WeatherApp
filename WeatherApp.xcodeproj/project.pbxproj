@@ -10,6 +10,7 @@
 		1F503EAEBD8E60FDD75C173A /* libPods-WeatherApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC44198A9C265771DE77C6B /* libPods-WeatherApp.a */; };
 		AAF233039C619DB29B6E2BC4 /* libPods-WeatherAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE2ACC7F31790FA6423D65D6 /* libPods-WeatherAppTests.a */; };
 		E12C94551D93A702008B272D /* CityWeatherDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = E12C94541D93A702008B272D /* CityWeatherDataProvider.m */; };
+		E149326F1DA4CB5400381906 /* WeatherItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E149326E1DA4CB5400381906 /* WeatherItem.m */; };
 		E199D8061D916B84008F0BAB /* weatherResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = E199D8051D916B84008F0BAB /* weatherResponse.json */; };
 		E1C11B3F1D7D4DB5001E9EDB /* CityWeatherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C11B3E1D7D4DB5001E9EDB /* CityWeatherTableViewController.m */; };
 		E1D202D11D78118D00EF0C80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D202D01D78118D00EF0C80 /* main.m */; };
@@ -38,6 +39,8 @@
 		CFD24E64CE03C1D02599997E /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E12C94531D93A702008B272D /* CityWeatherDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityWeatherDataProvider.h; sourceTree = "<group>"; };
 		E12C94541D93A702008B272D /* CityWeatherDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityWeatherDataProvider.m; sourceTree = "<group>"; };
+		E149326D1DA4CB5400381906 /* WeatherItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherItem.h; sourceTree = "<group>"; };
+		E149326E1DA4CB5400381906 /* WeatherItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherItem.m; sourceTree = "<group>"; };
 		E1604AAE1D7EE72900745837 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E1604AB01D7EE73200745837 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E1604AF91D7FE94400745837 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -162,6 +165,8 @@
 				E1C11B3D1D7D4DB5001E9EDB /* CityWeatherTableViewController.h */,
 				E1C11B3E1D7D4DB5001E9EDB /* CityWeatherTableViewController.m */,
 				E12C94521D93A6B0008B272D /* Networking */,
+				E149326D1DA4CB5400381906 /* WeatherItem.h */,
+				E149326E1DA4CB5400381906 /* WeatherItem.m */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -389,6 +394,7 @@
 				E1D202D41D78118D00EF0C80 /* AppDelegate.m in Sources */,
 				E1D202F91D78285D00EF0C80 /* CityNamesViewControllerTableViewController.m in Sources */,
 				E1D202D11D78118D00EF0C80 /* main.m in Sources */,
+				E149326F1DA4CB5400381906 /* WeatherItem.m in Sources */,
 				E12C94551D93A702008B272D /* CityWeatherDataProvider.m in Sources */,
 				E1C11B3F1D7D4DB5001E9EDB /* CityWeatherTableViewController.m in Sources */,
 			);

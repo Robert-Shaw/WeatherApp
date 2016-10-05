@@ -3,7 +3,6 @@
 @interface CityWeatherDataProvider ()
 
 @property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, strong) NSString *cityNameFromService;
 @property (nonatomic, weak) id delegate;
 
 @end
@@ -48,36 +47,44 @@
     [self parseResponseData:data];
 }
 
+- (void)setMaxTempAndDateForCity:(NSDictionary *)currentWeather {
+    for (NSDictionary *maxTemp in currentWeather) {
+        NSString *maxTempforCity = [maxTemp objectForKey:@"maxtempC"];
+        NSString *maxTempDate = [maxTemp objectForKey:@"date"];
+        WeatherItem *item = [[WeatherItem alloc] initWithMaxTemperature:[maxTempforCity intValue] forDateString:maxTempDate];
+        
+        [self.weatherItemArray addObject:item];
+        [self.maxTempsForCity addObject:maxTempforCity];
+        [self.maxTempDatesForCity addObject:maxTempDate];
+        
+    }
+}
+
+
+- (void)addNoWeatherItem {
+    WeatherItem *noweatherItem = [[WeatherItem alloc] initWithMaxTemperature:0 forDateString:@"No data to return for the selected city"];
+    [self.weatherItemArray addObject:noweatherItem];
+}
+
 - (void)parseResponseData:(NSData *)data {
     
-    self.maxTempsForCity = [[NSMutableArray alloc] init];
-    self.maxTempDatesForCity = [[NSMutableArray alloc] init];
+    self.maxTempsForCity = [NSMutableArray new];
+    self.maxTempDatesForCity = [NSMutableArray new];
+    self.weatherItemArray = [NSMutableArray new];
     
-    // convert to JSON
     NSError *myError = nil;
     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
     
-    // Retrieve Error
     NSDictionary *results = [res objectForKey:@"data"];
     NSDictionary *error = [results objectForKey:@"error"];
     
-    if(error)
-    {
+    if(error) {
+        [self addNoWeatherItem];
         [self.maxTempsForCity addObject:@"No data to return for the selected city"];
         [self.maxTempDatesForCity addObject:@""];
-    }
-    
-    // Retrieve City Name
-    NSDictionary *request = [results objectForKey:@"request"];
-    self.cityNameFromService = [request valueForKey:@"query"];
-    
-    // Retrieve temp and date
-    NSDictionary *currentWeather= [results objectForKey:@"weather"];
-    for (NSDictionary *maxTemp in currentWeather) {
-        NSString *maxTempforCity = [maxTemp objectForKey:@"maxtempC"];
-        [self.maxTempsForCity addObject:maxTempforCity];
-        NSString *maxTempDate = [maxTemp objectForKey:@"date"];
-        [self.maxTempDatesForCity addObject:maxTempDate];
+    } else {
+        NSDictionary *currentWeather= [results objectForKey:@"weather"];
+        [self setMaxTempAndDateForCity:currentWeather];
     }
     
     if ([self.delegate respondsToSelector:@selector(didReceiveData)]) {
@@ -86,6 +93,8 @@
 }
 
 - (NSString *)weatherForCityAtIndex:(NSInteger)index {
+    
+    WeatherItem *item = [self.weatherItemArray objectAtIndex:index];
     
     NSString *temp = [self.maxTempsForCity objectAtIndex:index];
     NSString *date = [self.maxTempDatesForCity objectAtIndex:index];
@@ -99,7 +108,6 @@
         
         stringsCombined = [NSString stringWithFormat:@"%@", temp];
     }
-
     
     return stringsCombined;
 }
